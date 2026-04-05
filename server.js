@@ -34,7 +34,7 @@ app.get('/photosOfUser/:id', (req, res) => {
     res.json(photos);
 });
 
-const PORT = 8080;
-app.listen(PORT, () => {
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Backend server successfully listening on port ${PORT}`);
 });
