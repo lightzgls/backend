@@ -1,9 +1,13 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const models = require('./models');
 
 const app = express();
 app.use(cors()); // Allow frontend to call the backend
+
+// Serve images as static files
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // Custom delay to simulate real-world latency
 app.use((req, res, next) => setTimeout(next, 100));
