@@ -6,8 +6,11 @@ const models = require('./models');
 const app = express();
 app.use(cors()); // Allow frontend to call the backend
 
-// Serve images as static files
-app.use('/images', express.static(path.join(__dirname, 'images')));
+// Serve images explicitly to avoid CodeSandbox tunnel intercepting express.static
+app.get('/images/:filename', (req, res) => {
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+    res.sendFile(path.join(__dirname, 'images', req.params.filename));
+});
 
 // Custom delay to simulate real-world latency
 app.use((req, res, next) => setTimeout(next, 100));
